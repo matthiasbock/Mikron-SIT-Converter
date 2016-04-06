@@ -1,2 +1,8 @@
 *.sit
 *.SIT
+*.jpg
+*.png
+Thumbs.db
+*~
+.*.swp
+

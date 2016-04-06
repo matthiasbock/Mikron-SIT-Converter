@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
-import os, sys
+import sys
 from sit import SIT
 
 sit = SIT(sys.argv[1])
-sit.show()
+sit.saveas(sys.argv[1][:-3]+".png", "PNG")
