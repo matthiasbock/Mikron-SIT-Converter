@@ -38,16 +38,33 @@ class SIT:
         # unidentified binary data
         f.read(921)
 
+        self.data = []
+        self.min = 0x3FFF
+        self.max = 0
+        for y in range(height):
+            row = []
+            for x in range(width):
+                value = (ord(f.read(1))*256 + ord(f.read(1))) & 0x0FFF
+                row.append(value)
+                if value > self.max:
+                    self.max = value
+                if value < self.min:
+                    self.min = value
+            self.data.append(row)
+
+    def show(self):
         # create a new black image
-        self.image = Image.new('RGB', (width,height), "black")
+        image = Image.new('RGB', (width,height), "black")
 
         # create the pixel map
-        pixels = self.image.load()
-
+        pixels = image.load()
+        
         for y in range(height):
             for x in range(width):
-                pixels[x,y] = rgb(0, 0x0FFF, (ord(f.read(1))*256 + ord(f.read(1))) & 0x0FFF ) #(ord(f.read(1)), 0, 0)
+                pixels[x,y] = rgb(self.min, self.max, self.data[y][x])
+
+        image.show()
+
 
 sit = SIT(sys.argv[1])
-
-sit.image.show()
+sit.show()
