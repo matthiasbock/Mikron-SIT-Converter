@@ -62,14 +62,14 @@ class SIT:
         
         for y in range(height):
             for x in range(width):
-                pixels[x,y] = rgb(self.min, self.max, self.data[y][x])
+                pixels[x,y] = rgb(0, 0x0FFF, self.data[y][x]) #rgb(self.min, self.max, self.data[y][x])
 
     def show(self):
         if self.image is None:
-            create_image()
+            self.create_image()
         self.image.show()
 
     def saveas(self, filename, format):
         if self.image is None:
-            create_image()
+            self.create_image()
         self.image.save(filename, format)
